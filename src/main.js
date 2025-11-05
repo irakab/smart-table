@@ -8,6 +8,7 @@ import {processFormData} from "./lib/utils.js";
 
 import {initTable} from "./components/table.js";
 import {initPagination} from "./components/pagination.js";
+import {initSorting} from "./components/sorting.js";
 // @todo: подключение
 
 
@@ -40,6 +41,7 @@ function render(action) {
     let result = [...data]; // копируем для последующего изменения
     // @todo: использование
     result = applyPagination(result, state, action);
+    result = applySorting(result, state, action);
 
     sampleTable.render(result)
 }
@@ -47,7 +49,7 @@ function render(action) {
 const sampleTable = initTable({
     tableTemplate: 'table',
     rowTemplate: 'row',
-    before: [],
+    before: ['header'],
     after: ['pagination']
 }, render);
 
@@ -63,6 +65,11 @@ const applyPagination = initPagination(
         return el;
     }
 );
+
+const applySorting = initSorting([        // Нам нужно передать сюда массив элементов, которые вызывают сортировку, чтобы изменять их визуальное представление
+    sampleTable.header.elements.sortByDate,
+    sampleTable.header.elements.sortByTotal
+]);
 
 
 const appRoot = document.querySelector('#app');
