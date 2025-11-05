@@ -22,13 +22,12 @@ export function initFiltering(elements, indexes) {
     return (data, state, action) => {
         // @todo: #4.2 — обработать очистку поля
         if(action && action.name === 'clear') {
-            const field = datset.field;
-            const input = action.parentElement.querySelector('input, select');
+            
+            const input = action.parentElement.querySelector(`[data-field="${action.dataset.field}"]`);
             if(input) {
                 input.value = '';
+                state[action.dataset.field] = '';
 
-            }else if(state[field] !== undefined) {
-                state[field] = '';
             }
         }
 
