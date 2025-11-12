@@ -44,11 +44,13 @@ async function render(action) {
     query = applySorting(query, state, action);
     query = applyPagination(query, state, action);
    
-    
+    try {
     const { total, items } = await api.getRecords(query); 
-
-    updatePagination(total, query); // перерисовываем пагинатор
-    sampleTable.render(items) 
+        updatePagination(total, query); // перерисовываем пагинатор
+        sampleTable.render(items) 
+    }catch (err) {
+        console.error(`Ошибка загрузки: ${err.message}`)
+    }
 }
 
 const sampleTable = initTable({

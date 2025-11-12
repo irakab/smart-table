@@ -11,7 +11,7 @@ export function initFiltering(elements) {
             // используйте name как значение и текстовое содержимое
             const option = document.createElement("option");
             option.value = name;
-            option.textContent = "name";
+            option.textContent = name;
             return option; // @todo: создать и вернуть тег опции
           }))
         })
